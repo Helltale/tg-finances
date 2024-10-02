@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  tg_finances_auth_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: tg_finances_auth_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5431:5432"
+    volumes:
+      - auth_db_data:/var/lib/postgresql/data  
+      - ./scripts/auth.sql:/docker-entrypoint-initdb.d/authc.sql
+
+  tg_finances_income_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: income_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - income_db_data:/var/lib/postgresql/data  
+
+  tg_finances_experiences_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: experiences_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5433:5432"
+    volumes:
+      - experiences_db_data:/var/lib/postgresql/data 
+
+  tg_finances_experience_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: experience_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5434:5432"
+    volumes:
+      - experience_db_data:/var/lib/postgresql/data  
+
+  tg_finances_goals_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: goals_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5435:5432"
+    volumes:
+      - goals_db_data:/var/lib/postgresql/data  
+
+  tg_finances_remains_db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: remains_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5436:5432"
+    volumes:
+      - remains_db_data:/var/lib/postgresql/data  
+
+volumes:
+  auth_db_data: {} 
+  income_db_data: {}  
+  experiences_db_data: {}  
+  experience_db_data: {}  
+  goals_db_data: {}  
+  remains_db_data: {} 
