@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/helltale/tg-finances/client/internal/messages"
@@ -27,7 +28,12 @@ func New(bot *telego.Bot, updates <-chan telego.Update, options ...th.BotHandler
 
 			log.Printf("`%d` send /start command", sessionContext.UserID)
 
-			messages.SendMessageWithoutDelete(b, "hi hi hi", sessionContext)
+			message := fmt.Sprintf(`Привет, %s!
+Ближайшая цель: ....
+Расход менльше на 10%%
+Последняя потраченная сумма: ....`, update.Message.From.FirstName)
+
+			messages.SendMainMenu(bot, message, sessionContext)
 		} else {
 			log.Println("received update without message")
 		}
