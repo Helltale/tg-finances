@@ -58,13 +58,13 @@ func SendMessageInlineKeyboard(bot *telego.Bot, messageText string, sessionConte
 func SendMainMenuWithoutDelete(bot *telego.Bot, messageText string, sessionContext *model.SessionContext) {
 	inlineKeyboard := tu.InlineKeyboard(
 		tu.InlineKeyboardRow(
-			tu.InlineKeyboardButton("Расходы").WithCallbackData("main_menu_income"),
+			tu.InlineKeyboardButton("Расходы").WithCallbackData("main_menu_experience_menu"),
 		),
 		tu.InlineKeyboardRow(
-			tu.InlineKeyboardButton("Доходы").WithCallbackData("main_menu_revenues"),
+			tu.InlineKeyboardButton("Доходы").WithCallbackData("main_menu_income_menu"),
 		),
 		tu.InlineKeyboardRow(
-			tu.InlineKeyboardButton("Цели").WithCallbackData("main_menu_goals"),
+			tu.InlineKeyboardButton("Цели").WithCallbackData("main_menu_goals_menu"),
 		),
 		tu.InlineKeyboardRow(
 			tu.InlineKeyboardButton("Кэшбеки").WithCallbackData("main_menu_cashbacks"),

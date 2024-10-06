@@ -5,62 +5,70 @@ CREATE TABLE profile.userdata (
     profile_name VARCHAR(100) NOT NULL
 );
 
-create schema income;
+CREATE SCHEMA income;
 
-create table income.income_type (
-    name_type varchar(100) primary key
+CREATE TABLE income.income_type (
+    name_type VARCHAR(100) PRIMARY KEY
 );
 
---должно быть
-create table income.income_standart (
-    id_income_standart serial primary key,
-    name_income varchar(100) not NULL,
-    tg_id bigint not NULL,
-    price_standart float not NULL,
-    date_income_standart_date timestamp not NULL, --здесь должно быть число
-    date_income_standart_month timestamp --здесь должно быть месяц
-    date_actual_from timestamp not NULL,
-    date_actual_to timestamp not NULL, -- '9999-12-31' если актуальная запись
+CREATE TABLE income.income_standart (
+    id_income_standart SERIAL PRIMARY KEY,
+    name_income VARCHAR(100) NOT NULL REFERENCES income.income_type(name_type),
+    tg_id BIGINT NOT NULL,
+    price_standart DECIMAL(10, 2) NOT NULL,
+    date_income_standart_date DATE NOT NULL,
+    date_income_standart_month DATE,
+    date_actual_from TIMESTAMP NOT NULL,
+    date_actual_to TIMESTAMP NOT NULL
 );
 
---как всегда...
-create table income.income_real (
-    id_income_real serial primary key,
-    name_income varchar(100) not NULL,
-    id_income_standart bigint not NULL,
-    tg_id bigint not NULL,
-    price_real float not NULL,
-    date_income_real_date timestamp not NULL, --здесь должно быть число
-    date_income_real_month timestamp --здесь должно быть месяц
-    date_actual_from timestamp not NULL,
-    date_actual_to timestamp not NULL, -- '9999-12-31' если актуальная запись
+CREATE TABLE income.income_real (
+    id_income_real SERIAL PRIMARY KEY,
+    name_income VARCHAR(100) NOT NULL REFERENCES income.income_type(name_type),
+    id_income_standart BIGINT NOT NULL,
+    tg_id BIGINT NOT NULL,
+    price_real DECIMAL(10, 2) NOT NULL,
+    date_income_real_date DATE NOT NULL,
+    date_income_real_month DATE,
+    date_actual_from TIMESTAMP NOT NULL,
+    date_actual_to TIMESTAMP NOT NULL
 );
 
-create schema bank;
+CREATE SCHEMA bank;
 
-create table bank.remnant ( -- остаток
-    id_remnant serial primary key
-    tg_id bigint not null,
-    price float not NULL,
-    date_actual_from timestamp not NULL,
-    date_actual_to timestamp not NULL, -- '9999-12-31' если актуальная запись
+CREATE TABLE bank.remnant (
+    id_remnant SERIAL PRIMARY KEY,
+    tg_id BIGINT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    date_actual_from TIMESTAMP NOT NULL,
+    date_actual_to TIMESTAMP NOT NULL
 );
 
-create schema expences;
+CREATE SCHEMA expences;
 
-create table expences.expences_categories ( --категории трат
-    name_category varchar(150)
+CREATE TABLE expences.expences_categories (
+    name_category VARCHAR(150) PRIMARY KEY
 );
 
---todo переделать 
-create table expences.expences ( --траты
-    id_expences serial primary key,
-    expences_category varchar(150) not null,
-    expences_name varchar(500) not null,
-    expences_description text,
-    expences_money float not null,
-    expences_date timestamp not null,
-    flag_constancy tinyint not null,
-    date_actual_from timestamp not NULL,
-    date_actual_to timestamp not NULL
-)
+CREATE TABLE expences.expences (
+    id_expences SERIAL PRIMARY KEY,
+    expences_category VARCHAR(150) NOT NULL REFERENCES expences.expences_categories(name_category),
+    expences_name VARCHAR(500) NOT NULL,
+    expences_description TEXT,
+    expences_money DECIMAL(10, 2) NOT NULL,
+    expences_date TIMESTAMP NOT NULL,
+    flag_constancy TINYINT NOT NULL,
+    date_actual_from TIMESTAMP NOT NULL,
+    date_actual_to TIMESTAMP NOT NULL
+);
+
+CREATE SCHEMA cashback;
+
+CREATE TABLE cashback.cashback_info (
+    id_cashback SERIAL PRIMARY KEY,
+    bank_name VARCHAR(100) NOT NULL,
+    category VARCHAR(150) NOT NULL,
+    cashback_percentage DECIMAL(5, 2) NOT NULL,
+    date_start DATE NOT NULL,
+    date_end DATE NOT NULL
+);
