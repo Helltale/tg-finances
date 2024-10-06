@@ -6,5 +6,5 @@ CREATE TABLE profile.userdata (
 );
 
 INSERT INTO profile.userdata (tg_id, profile_name) VALUES 
-(616547839, 'дима'),
-(616547830, 'не дима');
+(616547839, 'user1'),
+(616547830, 'user2');

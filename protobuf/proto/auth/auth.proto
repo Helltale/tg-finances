@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "D:/projects/golang/tg-program/database-auth/proto/auth";
+
+package auth;
+
+service Auth {
+    rpc CheckUser(CheckUserRequest) returns (CheckUserResponse);
+}
+
+message CheckUserRequest {
+    int64 profile_tg_id = 1;
+}
+
+message CheckUserResponse {
+    bool exists = 1;
+    string profile_name = 2;
+}

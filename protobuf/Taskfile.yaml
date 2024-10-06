@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  generate-auth:
+    desc: "protobuf for auth"
+    cmds:
+      -  protoc --go_out=D:\projects\golang\tg-finances\protobuf\gen\auth --go_opt=paths=source_relative --go-grpc_out=D:\projects\golang\tg-finances\protobuf\gen\auth --go-grpc_opt=paths=source_relative -I=D:\projects\golang\tg-finances\protobuf\proto\auth D:\projects\golang\tg-finances\protobuf\proto\auth\auth.proto
